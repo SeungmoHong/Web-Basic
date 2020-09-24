@@ -9,9 +9,48 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <script>
+    let clickCount = 0;
+    let numbers = [];
+    let gameMoney = 10000;
+    let gameCount = 0;
+    function change(id) {
+        let button = document.getElementById(id);
+        let random = Math.floor(Math.random() * 3);
+        button.innerHTML = random;
+        clickCount++;
+        numbers.push(random);
+        if (clickCount === 3) {
+            setTimeout(function() {
+                playGame();
+            }, 300);
+        }
+    }
+    function playGame() {
+        if (numbers[0] === numbers[1] && numbers[0] === numbers[2])
+            gameMoney += 2000;
+        else
+            gameMoney -= 1000;
+        gameCount++;
+        clickCount = 0;
+        numbers = [];
+        
+
+        let moneyDom = document.getElementById('money');
+        let countDom = document.getElementById('count');
+        let oneDom= document.getElementById('one');
+        let twoDom= document.getElementById('two');
+        let threeDom= document.getElementById('three');
+        moneyDom.innerHTML=gameMoney;
+        countDom.innerHTML=gameCount;
+        oneDom.innerHTML='?';
+        twoDom.innerHTML='?';
+        threeDom.innerHTML='?';
+    }
+</script>
 </head>
 <body>
-    <div class="container-fluids">
+    <div class="container">
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
             <a class="navbar-brand" href="#"><img src="img/hs.jpg" alt="hs" height="50"></a>
             <ul class="navbar-nav mr-auto">
@@ -41,7 +80,12 @@
                 <a class="nav-link" href="샘플.html">샘플</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="게임.html">게임</a>
+                <p> 게임머니 : <span id="money">10000</span>원
+                    횟수 :  <span id="count">0</span>회
+                </p>
+                <button id="one" onclick="change('one')">?</button>
+                <button id="two" onclick="change('two')">?</button>
+                <button id="three" onclick="change('three');">?</button>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">2020년 출시 스마트폰</a>
@@ -54,7 +98,8 @@
                 </div>
             </li>
             </ul>
-            <section class="col-6">
+            <div class="col-2"></div>
+            <section class="col-8">
                 <article>
                     <h2  id="역사"><a href="https://terms.naver.com/entry.nhn?docId=1199937&cid=40942&categoryId=32849"  target="_blank">스마트폰</a></h2>
                     <p>
